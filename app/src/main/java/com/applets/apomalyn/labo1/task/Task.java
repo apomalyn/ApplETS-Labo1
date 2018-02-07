@@ -11,7 +11,7 @@ public class Task {
 
     private String name;
 
-    private String details;
+    private String details = "";
 
     private boolean isCompleted = false;
 

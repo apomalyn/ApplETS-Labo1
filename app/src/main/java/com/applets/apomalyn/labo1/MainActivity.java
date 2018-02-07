@@ -32,13 +32,6 @@ public class MainActivity extends AppCompatActivity implements TaskFragment.OnLi
         setContentView(R.layout.activity_main);
 
         constructTaskList();
-
-        FragmentManager fragmentManager = getFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-        TaskFragment fragment = new TaskFragment();
-        fragmentTransaction.add(R.id.list, fragment);
-        fragmentTransaction.commit();
     }
 
     private void constructTaskList(){

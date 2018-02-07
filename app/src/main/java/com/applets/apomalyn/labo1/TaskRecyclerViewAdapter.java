@@ -36,7 +36,7 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mCheckBoxView.setText(mValues.get(position).getId());
+        holder.mCheckBoxView.setText("" + mValues.get(position).getId());
         holder.mContentView.setText(mValues.get(position).getDetails());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
