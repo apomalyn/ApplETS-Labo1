@@ -24,7 +24,7 @@ import java.util.Locale;
 
 public class MainActivity extends AppCompatActivity implements TaskFragment.OnListFragmentInteractionListener {
 
-    private static final String fileName = "tasksList.json";
+    private static final String fileName = "taskList.json";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements TaskFragment.OnLi
     private void constructTaskList(){
         JSONObject json = getJSON();
 
-        int idCurrent = 0;
+            int idCurrent = 0;
         String nameCurrent = "";
         String detailsCurrent = "";
         boolean isCompletedCurrent = false;
