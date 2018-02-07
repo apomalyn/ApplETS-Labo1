@@ -1,4 +1,4 @@
-package com.applets.apomalyn.labo1;
+package com.applets.apomalyn.labo1.task;
 
 import java.util.Date;
 
@@ -11,15 +11,24 @@ public class Task {
 
     private String name;
 
+    private String details;
+
     private boolean isCompleted = false;
 
     private Date completedDate = null;
 
-    public Task(int id, String name, boolean isCompleted, Date completedDate) {
+    public Task(int id, String name, String details, boolean isCompleted, Date completedDate) {
         this.id = id;
         this.name = name;
+        this.details = details;
         this.isCompleted = isCompleted;
         this.completedDate = completedDate;
+    }
+
+    public Task(int id, String name, String details){
+        this.id = id;
+        this.name = name;
+        this.details = details;
     }
 
     public Task(int id, String name){
@@ -57,6 +66,14 @@ public class Task {
 
     public void setCompletedDate(Date completedDate) {
         this.completedDate = completedDate;
+    }
+
+    public String getDetails(){
+        return details;
+    }
+
+    public void setDetails(String details){
+        this.details = details;
     }
 
     public String toString(){
