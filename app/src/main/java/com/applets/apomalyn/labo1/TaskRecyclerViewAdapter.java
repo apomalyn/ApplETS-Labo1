@@ -15,7 +15,6 @@ import java.util.List;
 /**
  * {@link RecyclerView.Adapter} that can display a {@link Task} and makes a call to the
  * specified {@link OnListFragmentInteractionListener}.
- * TODO: Replace the implementation with code for your data type.
  */
 public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerViewAdapter.ViewHolder> {
 
@@ -37,7 +36,7 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
         holder.mItem = mValues.get(position);
-        holder.mIdView.setText(mValues.get(position).getId());
+        holder.mCheckBoxView.setText(mValues.get(position).getId());
         holder.mContentView.setText(mValues.get(position).getDetails());
 
         holder.mView.setOnClickListener(new View.OnClickListener() {
@@ -59,16 +58,18 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         public final View mView;
-        public final CheckBox mIdView;
+        public final CheckBox mCheckBoxView;
         public final TextView mContentView;
         public Task mItem;
 
         public ViewHolder(View view) {
             super(view);
             mView = view;
-            mIdView = view.findViewById(R.id.checkBox);
+            mCheckBoxView = view.findViewById(R.id.checkBox);
             mContentView = view.findViewById(R.id.date);
         }
+
+
 
         @Override
         public String toString() {

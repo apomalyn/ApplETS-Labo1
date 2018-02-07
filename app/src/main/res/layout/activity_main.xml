@@ -8,7 +8,7 @@
 
     <fragment
         android:id="@+id/list"
-        android:name="com.applets.apomalyn.labo1.TaskFragment"
+        class="com.applets.apomalyn.labo1.TaskFragment"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_weight="1" />

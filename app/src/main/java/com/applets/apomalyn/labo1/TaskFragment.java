@@ -27,6 +27,9 @@ public class TaskFragment extends Fragment {
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
 
+    private RecyclerView recyclerView = null;
+    private TaskRecyclerViewAdapter taskRecyclerViewAdapter = null;
+
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -61,13 +64,14 @@ public class TaskFragment extends Fragment {
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new TaskRecyclerViewAdapter(TaskContent.ITEMS, mListener));
+            taskRecyclerViewAdapter = new TaskRecyclerViewAdapter(TaskContent.ITEMS, mListener);
+            recyclerView.setAdapter(taskRecyclerViewAdapter);
         }
         return view;
     }
@@ -101,7 +105,6 @@ public class TaskFragment extends Fragment {
      * >Communicating with Other Fragments</a> for more information.
      */
     public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onListFragmentInteraction(Task item);
     }
 }
