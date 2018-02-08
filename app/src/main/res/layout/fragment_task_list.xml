@@ -10,4 +10,6 @@
     android:layout_marginRight="16dp"
     app:layoutManager="LinearLayoutManager"
     tools:context="com.applets.apomalyn.labo1.TaskFragment"
-    tools:listitem="@layout/fragment_task" />
+    tools:listitem="@layout/fragment_task" >
+
+</android.support.v7.widget.RecyclerView>
