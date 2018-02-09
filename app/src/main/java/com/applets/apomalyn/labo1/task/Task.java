@@ -1,6 +1,12 @@
 package com.applets.apomalyn.labo1.task;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by apomalyn on 06/02/18.
@@ -74,6 +80,24 @@ public class Task {
 
     public void setDetails(String details){
         this.details = details;
+    }
+
+    public JSONObject save(){
+        JSONObject json = new JSONObject();
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd H:m", Locale.ENGLISH);
+
+        try{
+            json.put("id", this.id);
+            json.put("name", this.name);
+            json.put("details", this.details);
+            json.put("isCompleted", this.isCompleted);
+            if(isCompleted)
+                json.put("completedDate", format.format(this.completedDate));
+        }catch (JSONException e){
+            e.printStackTrace();
+            return null;
+        }
+        return json;
     }
 
     public String toString(){

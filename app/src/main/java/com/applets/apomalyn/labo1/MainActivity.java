@@ -15,8 +15,11 @@ import com.applets.apomalyn.labo1.task.TaskContent;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -28,10 +31,14 @@ public class MainActivity extends AppCompatActivity implements TaskFragment.OnLi
 
     private static final String fileName = "taskList.json";
 
+    private TaskFragment fragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        this.fragment = (TaskFragment) getFragmentManager().findFragmentById(R.id.list);
 
         constructTaskList();
     }
@@ -72,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements TaskFragment.OnLi
         String json = null;
         JSONObject object = null;
         try {
-            InputStream is = getAssets().open(fileName);
+            InputStream is = openFileInput(fileName);// getAssets().open(fileName);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
@@ -81,7 +88,6 @@ public class MainActivity extends AppCompatActivity implements TaskFragment.OnLi
 
             object = new JSONObject(json);
         } catch (IOException ex) {
-            ex.printStackTrace();
             return null;
         } catch (JSONException e){
             e.printStackTrace();
@@ -91,7 +97,31 @@ public class MainActivity extends AppCompatActivity implements TaskFragment.OnLi
     }
 
     public void saveTask(){
+        JSONObject json = new JSONObject();
+        FileOutputStream out;
+        Task current = null;
 
+        try {
+
+            for (int i = 0; i < TaskContent.ITEMS.size(); i++){
+                current = TaskContent.ITEMS.get(i);
+                    json.put("task_" + i, current.save());
+            }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        try{
+            out = openFileOutput(fileName, Context.MODE_PRIVATE);
+            String j = json.toString();
+            out.write(json.toString().getBytes());
+            out.close();
+        }catch (IOException e){
+            e.printStackTrace();
+            Toast.makeText(this, "Desole la sauvegarde ne semble pas fonctionner",
+                    Toast.LENGTH_LONG).show();
+            return;
+        }
     }
 
     @Override

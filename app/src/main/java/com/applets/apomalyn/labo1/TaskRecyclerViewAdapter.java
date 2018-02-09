@@ -41,7 +41,7 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
 
     @Override
     public void onBindViewHolder(final ViewHolder holder, int position) {
-        DateFormat format = new SimpleDateFormat("M dd, yyyy - h:m a", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("MMM dd, yyyy - h:m a", Locale.ENGLISH);
 
         holder.mItem = mValues.get(position);
         holder.checkBox.setChecked(holder.mItem.isCompleted());
@@ -93,7 +93,7 @@ public class TaskRecyclerViewAdapter extends RecyclerView.Adapter<TaskRecyclerVi
         }
 
         public void update(){
-            DateFormat format = new SimpleDateFormat("M dd, yyyy - h:m a", Locale.ENGLISH);
+            DateFormat format = new SimpleDateFormat("MMM dd, yyyy - h:m a", Locale.ENGLISH);
             if(mItem.isCompleted()){
                 dateCompletedText.setText(format.format(mItem.getCompletedDate()));
                 nameText.setPaintFlags(nameText.getPaintFlags()| Paint.STRIKE_THRU_TEXT_FLAG);
