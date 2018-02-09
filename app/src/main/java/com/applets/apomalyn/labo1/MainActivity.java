@@ -4,8 +4,10 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.app.FragmentManager;
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.applets.apomalyn.labo1.task.Task;
 import com.applets.apomalyn.labo1.task.TaskContent;
@@ -42,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements TaskFragment.OnLi
         String detailsCurrent = "";
         boolean isCompletedCurrent = false;
         Date completedDateCurrent = null;
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd H:m", Locale.ENGLISH);
 
         if(json != null){
             Iterator<String> keys = json.keys();
@@ -88,8 +90,25 @@ public class MainActivity extends AppCompatActivity implements TaskFragment.OnLi
         return object;
     }
 
+    public void saveTask(){
+
+    }
+
     @Override
     public void onListFragmentInteraction(Task item) {
+        Toast.makeText(this, "Details !",
+                Toast.LENGTH_LONG).show();
+    }
 
+    @Override
+    public void onListCheckBoxChange(Task item, boolean isChecked) {
+        if(isChecked){
+            item.setCompleted(true);
+            item.setCompletedDate(new Date());
+        }else{
+            item.setCompleted(false);
+            item.setCompletedDate(null);
+        }
+        saveTask();
     }
 }

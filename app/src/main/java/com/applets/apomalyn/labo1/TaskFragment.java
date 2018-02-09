@@ -86,5 +86,6 @@ public class TaskFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         void onListFragmentInteraction(Task item);
+        void onListCheckBoxChange(Task item, boolean isChecked);
     }
 }
