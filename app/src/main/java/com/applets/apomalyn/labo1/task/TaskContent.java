@@ -28,13 +28,15 @@ public class TaskContent {
         ITEM_MAP.put("" + item.getId(), item);
     }
 
-    private static Task createTask(String name) {
+    public static Task createTask(String name, String details) {
         int id = 0;
         for(Task task: ITEMS) {
             if(task.getId() > id)
                 id = task.getId();
         }
-        return new Task(id, name);
+        Task task = new Task(id, name, details);
+        add(task);
+        return task;
     }
 
     private static String makeDetails(int position) {

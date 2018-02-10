@@ -55,24 +55,28 @@ public class MainActivity extends AppCompatActivity implements TaskFragment.OnLi
             }
         });
 
-        constructTaskList();
+        if(TaskContent.ITEMS.size() == 0)
+            constructTaskList();
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data){
         if(resultCode == SAVE_TASK){
             saveTask();
+            constructTaskList();
         }
     }
 
     private void constructTaskList(){
         JSONObject json = getJSON();
-
-            int idCurrent = 0;
+        int idCurrent = 0;
         String nameCurrent = "";
         String detailsCurrent = "";
         boolean isCompletedCurrent = false;
         Date completedDateCurrent = null;
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd H:m", Locale.ENGLISH);
+
+        TaskContent.ITEMS.clear();
+        TaskContent.ITEM_MAP.clear();
 
         if(json != null){
             Iterator<String> keys = json.keys();
