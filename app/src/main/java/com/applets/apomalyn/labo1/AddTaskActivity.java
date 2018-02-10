@@ -9,12 +9,18 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.applets.apomalyn.labo1.task.Task;
 import com.applets.apomalyn.labo1.task.TaskContent;
 
 public class AddTaskActivity extends AppCompatActivity {
 
     private EditText nameField;
+
     private EditText detailsField;
+
+    private int id = -1;
+
+    private final static String title = "Add Task";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +28,7 @@ public class AddTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_task);
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
+        myToolbar.setTitle(title);
         setSupportActionBar(myToolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -29,6 +36,17 @@ public class AddTaskActivity extends AppCompatActivity {
 
         nameField = findViewById(R.id.nameText);
         detailsField = findViewById(R.id.detailsText);
+
+        Bundle params = this.getIntent().getExtras();
+
+        if(params != null){
+            id = params.getInt("id") ;
+            Task task = TaskContent.ITEM_MAP.get(id);
+            if(task != null){
+                nameField.setText(task.getName());
+                detailsField.setText(task.getDetails());
+            }
+        }
     }
 
     @Override
@@ -38,17 +56,15 @@ public class AddTaskActivity extends AppCompatActivity {
         return true;
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.done){
-            return true;
-        }
-        return true;
-    }
 
     public void onClickItem(MenuItem item){
         if(!(nameField.getText().toString().equals(null) || nameField.getText().toString().equals(""))){
-            TaskContent.createTask(nameField.getText().toString(), detailsField.getText().toString());
+            if(id > -1){
+                TaskContent.ITEM_MAP.get(id).setName(nameField.getText().toString());
+                TaskContent.ITEM_MAP.get(id).setDetails(detailsField.getText().toString());
+            }else{
+                TaskContent.createTask(nameField.getText().toString(), detailsField.getText().toString());
+            }
             setResult(MainActivity.SAVE_TASK);
             finish();
         }else{
