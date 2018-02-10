@@ -1,8 +1,5 @@
 package com.applets.apomalyn.labo1.task;
 
-import android.content.res.AssetManager;
-
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

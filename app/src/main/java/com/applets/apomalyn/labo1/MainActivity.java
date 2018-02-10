@@ -1,12 +1,12 @@
 package com.applets.apomalyn.labo1;
 
-import android.app.FragmentTransaction;
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.app.FragmentManager;
-import android.graphics.Paint;
+import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.Toast;
 
 import com.applets.apomalyn.labo1.task.Task;
@@ -15,11 +15,9 @@ import com.applets.apomalyn.labo1.task.TaskContent;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -31,6 +29,11 @@ public class MainActivity extends AppCompatActivity implements TaskFragment.OnLi
 
     private static final String fileName = "taskList.json";
 
+    public static final int ADD_TASK_ACTIVITY = 0;
+    public static final int DETAILS_TASK_ACTIVITY = 1;
+
+    public static final int SAVE_TASK = 10;
+
     private TaskFragment fragment;
 
     @Override
@@ -38,9 +41,27 @@ public class MainActivity extends AppCompatActivity implements TaskFragment.OnLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        setSupportActionBar(myToolbar);
+
         this.fragment = (TaskFragment) getFragmentManager().findFragmentById(R.id.list);
 
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.addButton);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, AddTaskActivity.class);
+                startActivityForResult(intent, ADD_TASK_ACTIVITY);
+            }
+        });
+
         constructTaskList();
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        if(resultCode == SAVE_TASK){
+            saveTask();
+        }
     }
 
     private void constructTaskList(){
@@ -79,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements TaskFragment.OnLi
         String json = null;
         JSONObject object = null;
         try {
-            InputStream is = openFileInput(fileName);// getAssets().open(fileName);
+            InputStream is = openFileInput(fileName);
             int size = is.available();
             byte[] buffer = new byte[size];
             is.read(buffer);
@@ -102,10 +123,9 @@ public class MainActivity extends AppCompatActivity implements TaskFragment.OnLi
         Task current = null;
 
         try {
-
             for (int i = 0; i < TaskContent.ITEMS.size(); i++){
                 current = TaskContent.ITEMS.get(i);
-                    json.put("task_" + i, current.save());
+                json.put("task_" + i, current.save());
             }
         }catch (JSONException e){
             e.printStackTrace();
@@ -116,16 +136,16 @@ public class MainActivity extends AppCompatActivity implements TaskFragment.OnLi
             String j = json.toString();
             out.write(json.toString().getBytes());
             out.close();
-        }catch (IOException e){
-            e.printStackTrace();
-            Toast.makeText(this, "Desole la sauvegarde ne semble pas fonctionner",
+        }catch(IOException e){
+            Toast.makeText(this, "Une erreur est survenue durant la sauvegarde",
                     Toast.LENGTH_LONG).show();
-            return;
         }
     }
 
     @Override
     public void onListFragmentInteraction(Task item) {
+//        Intent intent = new Intent(MainActivity.this, DetailsTaskActivity.class);
+//        startActivityForResult(intent, DETAILS_TASK_ACTIVITY);
         Toast.makeText(this, "Details !",
                 Toast.LENGTH_LONG).show();
     }
