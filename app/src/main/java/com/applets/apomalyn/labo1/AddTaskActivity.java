@@ -21,7 +21,7 @@ public class AddTaskActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
 
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
+        Toolbar myToolbar = findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -47,10 +47,13 @@ public class AddTaskActivity extends AppCompatActivity {
     }
 
     public void onClickItem(MenuItem item){
-        if(nameField.getText().toString() != "" && detailsField.getText().toString() != ""){
+        if(!(nameField.getText().toString().equals(null) || nameField.getText().toString().equals(""))){
             TaskContent.createTask(nameField.getText().toString(), detailsField.getText().toString());
             setResult(MainActivity.SAVE_TASK);
             finish();
+        }else{
+            Toast.makeText(this, "Vous devez saisir un nom",
+                    Toast.LENGTH_LONG).show();
         }
     }
 }
