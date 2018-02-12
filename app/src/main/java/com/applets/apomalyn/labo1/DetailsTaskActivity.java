@@ -16,6 +16,8 @@ import android.widget.Toast;
 import com.applets.apomalyn.labo1.task.Task;
 import com.applets.apomalyn.labo1.task.TaskContent;
 
+import java.io.IOException;
+
 import static com.applets.apomalyn.labo1.MainActivity.ADD_TASK_ACTIVITY;
 
 public class DetailsTaskActivity extends AppCompatActivity {
@@ -76,8 +78,14 @@ public class DetailsTaskActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == MainActivity.SAVE_TASK){
-            setResult(MainActivity.SAVE_TASK);
-            finish();
+            try{
+                TaskContent.save(getApplicationContext());
+                task = TaskContent.ITEM_MAP.get(task.getId());
+                details.setText(TaskContent.makeDetails(task.getId()));
+            }catch (IOException e){
+                Toast.makeText(this, "Une erreur est survenue durant la sauvegarde",
+                        Toast.LENGTH_LONG).show();
+            }
         }
     }
 }

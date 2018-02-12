@@ -20,7 +20,8 @@ public class AddTaskActivity extends AppCompatActivity {
 
     private int id = -1;
 
-    private final static String title = "Add Task";
+    private final static String titleAdd = "Add";
+    private final static String titleModify = "Edit";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +29,7 @@ public class AddTaskActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_task);
 
         Toolbar myToolbar = findViewById(R.id.my_toolbar);
-        myToolbar.setTitle(title);
+        myToolbar.setTitle(titleAdd);
         setSupportActionBar(myToolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -40,6 +41,7 @@ public class AddTaskActivity extends AppCompatActivity {
         Bundle params = this.getIntent().getExtras();
 
         if(params != null){
+            myToolbar.setTitle(titleModify);
             id = params.getInt("id") ;
             Task task = TaskContent.ITEM_MAP.get(id);
             if(task != null){
