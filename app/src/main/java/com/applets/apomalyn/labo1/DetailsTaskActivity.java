@@ -1,9 +1,11 @@
 package com.applets.apomalyn.labo1;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -62,14 +64,22 @@ public class DetailsTaskActivity extends AppCompatActivity {
                 startActivityForResult(intent, ADD_TASK_ACTIVITY);
                 break;
             case R.id.delete:
-                for (int i = 0; i < TaskContent.ITEMS.size(); i++){
-                    if(TaskContent.ITEMS.get(i).getId() == task.getId()){
-                        TaskContent.ITEMS.remove(i);
-                        setResult(MainActivity.SAVE_TASK);
-                        this.finish();
-                        break;
-                    }
-                }
+                new AlertDialog.Builder(this)
+                        .setTitle("Suppimer")
+                        .setMessage("Souhaiter vous vraiment supprimer " + task.getName() + " ?")
+                        .setIcon(android.R.drawable.ic_delete)
+                        .setPositiveButton(R.string.oui, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int whichButton) {
+                                for (int i = 0; i < TaskContent.ITEMS.size(); i++){
+                                    if(TaskContent.ITEMS.get(i).getId() == task.getId()){
+                                        TaskContent.ITEMS.remove(i);
+                                        setResult(MainActivity.SAVE_TASK);
+                                        finish();
+
+                                    }
+                                }
+                            }})
+                        .setNegativeButton(android.R.string.no, null).show();
                 break;
         }
         return super.onOptionsItemSelected(item);

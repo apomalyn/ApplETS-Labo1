@@ -1,7 +1,6 @@
 package com.applets.apomalyn.labo1.task;
 
 import android.content.Context;
-import android.widget.Toast;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,12 +19,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-/**
- * Helper class for providing sample content for user interfaces created by
- * Android template wizards.
- * <p>
- * TODO: Replace all uses of this class before publishing your app.
- */
 public class TaskContent {
 
     private static final String fileName = "taskList.json";
@@ -83,8 +76,8 @@ public class TaskContent {
         Date completedDateCurrent = null;
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd H:m", Locale.ENGLISH);
 
-        TaskContent.ITEMS.clear();
-        TaskContent.ITEM_MAP.clear();
+        ITEMS.clear();
+        ITEM_MAP.clear();
 
         if(json != null){
             Iterator<String> keys = json.keys();
@@ -103,7 +96,7 @@ public class TaskContent {
                 }catch (ParseException e){
                     completedDateCurrent = null;
                 }
-                TaskContent.add(new Task(idCurrent, nameCurrent, detailsCurrent, isCompletedCurrent, completedDateCurrent));
+                add(new Task(idCurrent, nameCurrent, detailsCurrent, isCompletedCurrent, completedDateCurrent));
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.applets.apomalyn.labo1;
 
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -33,7 +34,6 @@ public class AddTaskActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
 
         nameField = findViewById(R.id.nameText);
         detailsField = findViewById(R.id.detailsText);
@@ -42,6 +42,7 @@ public class AddTaskActivity extends AppCompatActivity {
 
         if(params != null){
             myToolbar.setTitle(titleModify);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_clear_black);
             id = params.getInt("id") ;
             Task task = TaskContent.ITEM_MAP.get(id);
             if(task != null){
@@ -56,6 +57,16 @@ public class AddTaskActivity extends AppCompatActivity {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.add_menu, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                finish();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 
