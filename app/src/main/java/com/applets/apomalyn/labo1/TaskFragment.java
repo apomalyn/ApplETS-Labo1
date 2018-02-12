@@ -43,7 +43,6 @@ public class TaskFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_task_list, container, false);
 
-        //recyclerView = (RecyclerView) view.findViewById(R.id.list);
         // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
@@ -54,6 +53,10 @@ public class TaskFragment extends Fragment {
             this.recyclerView.setAdapter(taskRecyclerViewAdapter);
         }
         return view;
+    }
+
+    public void updateList(){
+        taskRecyclerViewAdapter.notifyDataSetChanged();
     }
 
 

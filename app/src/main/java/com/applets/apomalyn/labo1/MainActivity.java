@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity implements TaskFragment.OnLi
         if(resultCode == SAVE_TASK){
             saveTask();
             constructTaskList();
+            fragment.updateList();
         }
     }
 
@@ -148,10 +149,9 @@ public class MainActivity extends AppCompatActivity implements TaskFragment.OnLi
 
     @Override
     public void onListFragmentInteraction(Task item) {
-//        Intent intent = new Intent(MainActivity.this, DetailsTaskActivity.class);
-//        startActivityForResult(intent, DETAILS_TASK_ACTIVITY);
-        Toast.makeText(this, "Details !",
-                Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(MainActivity.this, DetailsTaskActivity.class);
+        intent.putExtra("id", item.getId());
+        startActivityForResult(intent, DETAILS_TASK_ACTIVITY);
     }
 
     @Override

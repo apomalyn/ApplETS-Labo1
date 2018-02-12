@@ -21,11 +21,11 @@ public class TaskContent {
     /**
      * A map of sample (Task) items, by ID.
      */
-    public static final Map<String, Task> ITEM_MAP = new HashMap<String, Task>();
+    public static final Map<Integer, Task> ITEM_MAP = new HashMap<Integer, Task>();
 
     public static void add(Task item) {
         ITEMS.add(item);
-        ITEM_MAP.put("" + item.getId(), item);
+        ITEM_MAP.put(item.getId(), item);
     }
 
     public static Task createTask(String name, String details) {
@@ -34,20 +34,20 @@ public class TaskContent {
             if(task.getId() > id)
                 id = task.getId();
         }
+        id++;
         Task task = new Task(id, name, details);
         add(task);
         return task;
     }
 
-    private static String makeDetails(int position) {
+    public static String makeDetails(int position) {
         StringBuilder builder = new StringBuilder();
-        Task task = ITEMS.get(position);
+        Task task = ITEM_MAP.get(position);
         if(task.getDetails().isEmpty()){
             builder.append("Aucun details sur cette tache.");
         }else{
-            builder.append("Details about ").append(task.getName()).append(" :\n").append(task.getDetails());
+            builder.append(task.getDetails());
         }
-
         return builder.toString();
     }
 }

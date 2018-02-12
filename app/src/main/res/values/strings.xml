@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Task List</string>
     <string name="action_add">Add task</string>
-    <string name="action_done">DONE</string>
+    <string name="action_done">Done</string>
+    <string name="action_edit">Edit</string>
+    <string name="action_delete">Delete</string>
     <string name="name_field_placeholder">Name</string>
     <string name="details_field_placeholder">Details</string>
     <string name="title_activity_details_task">DetailsTaskActivity</string>

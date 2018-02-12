@@ -19,10 +19,10 @@
         <activity
             android:name=".AddTaskActivity"
             android:parentActivityName=".MainActivity"></activity>
+
         <activity
             android:name=".DetailsTaskActivity"
-            android:label="@string/title_activity_details_task"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:parentActivityName=".MainActivity"></activity>
     </application>
 
 </manifest>
